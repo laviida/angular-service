@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-user-list',
@@ -9,22 +10,36 @@ import { User } from 'src/app/models/user';
 })
 export class UserListComponent implements OnInit {
 
-  users = [{ name: "afssaf", surname: "aawww", password: "afssaf", email: "aaa@ee.com" }]
+  page: number;
+  limit: number;
+  users: Array<User>
 
   newUser: User;
   showDialog: boolean;
   userForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  header: string;
+
+  constructor(private usersService: UsersService) {
     this.newUser = { name: "", email: "", password: "", surname: "" };
     this.showDialog = false;
-    this.userForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, /*LoginValidator.regex*/]],
-      name: ['', [Validators.required]],
-      surname: ['', [Validators.required]],
+    this.userForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]),
+      name: new FormControl('', [Validators.required]),
+      surname: new FormControl('', [Validators.required]),
     });
+
+    this.page = 1;
+    this.limit = 10;
+    this.header = "";
+
+    this.users = [];
+    this.usersService.listUsers(this.page, this.limit).then(({ data: { data, error }, status }) => {
+      this.users = !error ? data?.users.docs : [];
+    })
   }
+
   ngOnInit(): void {
 
   }
@@ -36,24 +51,9 @@ export class UserListComponent implements OnInit {
   }
 
   createUser() {
-    // this.submitted = true;
 
-    // if (this.product.name.trim()) {
-    //     if (this.product.id) {
-    //         this.products[this.findIndexById(this.product.id)] = this.product;                
-    //         this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
-    //     }
-    //     else {
-    //         this.product.id = this.createId();
-    //         this.product.image = 'product-placeholder.svg';
-    //         this.products.push(this.product);
-    //         this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
-    //     }
-
-    //     this.products = [...this.products];
-    //     this.productDialog = false;
-    //     this.product = {};
   }
 
 }
+
 

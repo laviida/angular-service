@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+body{
+    background-color: #121212;
+    color: white;
+}
+
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #64b5f6 #17212f;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #17212f;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #64b5f6;
+    border-radius: 10px;
+    border: 3px solid #17212f;
+  }
+
+  .p-inputwrapper{
+    width: 100% !important;
+}

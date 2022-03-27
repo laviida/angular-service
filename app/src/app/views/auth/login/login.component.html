@@ -1,1 +1,64 @@
-<p>login works!</p>
+<form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+    <p-panel header="Login" class="center">
+        <div class="card border-round">
+            <div class="formgrid">
+                <div class="field col">
+                    <div class="p-inputgroup w-full">
+                        <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                        <span class="p-float-label">
+                            <input type="email" id="email" name="email" formControlName="email" pInputText>
+                            <label for="email">Email</label>
+                        </span>
+                    </div>
+
+                    <div *ngIf="loginForm.get('email')?.invalid &&
+                        loginForm.get('email')?.errors &&
+                        (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+                        <small [ngStyle]="{color:'#ef9a9a'}" *ngIf="loginForm.get('email')?.hasError('required')">
+                            This field is required.
+                        </small>
+                        <small [ngStyle]="{color:'#ef9a9a'}" *ngIf="loginForm.get('email')?.hasError('email')">
+                            This field must be a valid email.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="field col">
+                    <div class="p-inputgroup w-full">
+                        <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
+                        <span class="p-float-label">
+                            <p-password inputName="password" class="w-8" [toggleMask]="true" [feedback]="false"
+                                inputStyleClass="input-password" #password formControlName="password"
+                                styleClass="p-password p-component p-inputwrapper p-input-icon-right">
+                            </p-password>
+                            <label for="password">Password</label>
+                        </span>
+                    </div>
+
+                    <div *ngIf="loginForm.get('password')?.invalid &&
+                    loginForm.get('password')?.errors &&
+                    (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+                        <small [ngStyle]="{color:'#ef9a9a'}" *ngIf="loginForm.get('password')?.hasError('required')">
+                            This field is required.
+                        </small>
+                        <small [ngStyle]="{color:'#ef9a9a'}" *ngIf="loginForm.get('password')?.hasError('pattern')">
+                            This field must be at least eight characters long, at least one uppercase letter, one
+                            lowercase letter, one number and one special character.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <div class="flex justify-content-between flex-wrap card-container purple-container">
+
+                <button class="p-button-primary p-button-outlined p-button-sm" pButton type="submit" label="Submit"
+                    [disabled]="!loginForm.valid" [loading]="submitIsLoading"></button>
+
+                <button class="p-button-secondary p-button-text p-button-sm" pButton label="Register"
+                    (click)="register()"></button>
+            </div>
+
+        </ng-template>
+    </p-panel>
+</form>

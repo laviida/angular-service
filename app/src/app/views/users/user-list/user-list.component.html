@@ -31,51 +31,9 @@
         </ng-template>
     </p-table>
 </div>
+<p-dialog [(visible)]="showDialog" [style]="{width: '450px'}" [modal]="true" styleClass="p-fluid">
+    <app-create-user-form [header]="header" [primaryButton]="primaryButton" [secondaryButton]="secondaryButton">
+    </app-create-user-form>
 
-<p-dialog [(visible)]="showDialog" [style]="{width: '450px'}" header="Create User" [modal]="true" styleClass="p-fluid">
-    <ng-template pTemplate="content">
-        <form [formGroup]="userForm" (ngSubmit)="createUser()">
-
-
-
-            <div class="p-field">
-                <span class="p-float-label p-input-icon-left">
-                    <i class="pi pi-user"></i>
-
-                    <input type="text" pInputText id="name" formControlName="name" />
-                    <label for="name">Name</label>
-
-                    <!-- <small class="p-invalid">Name is required.</small> -->
-                </span>
-            </div>
-
-            <div class="p-field">
-                <label for="surname">Surname</label>
-                <input type="text" pInputText id="surname" formControlName="surname" />
-                <small class="p-invalid">Name is required.</small>
-            </div>
-
-            <div class="p-field">
-                <label for="email">Email</label>
-                <input type="text" pInputText id="email" formControlName="email" />
-                <small class="p-invalid">Name is required.</small>
-            </div>
-
-            <div class="p-field">
-                <label for="password">Password</label>
-                <input type="text" pInputText id="password" formControlName="password" />
-                <small class="p-invalid">Name is required.</small>
-            </div>
-
-
-
-
-            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
-                (click)="showHideDialog(false)"></button>
-            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" type="submit"
-                [disabled]="!userForm.valid"></button>
-
-        </form>
-    </ng-template>
 
 </p-dialog>
