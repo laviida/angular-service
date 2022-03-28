@@ -56,9 +56,10 @@
                     [disabled]="!loginForm.valid" [loading]="submitIsLoading"></button>
 
                 <button class="p-button-secondary p-button-text p-button-sm" pButton label="Register"
-                    (click)="register()"></button>
+                    (click)="register()" type="button"></button>
             </div>
 
         </ng-template>
     </p-panel>
 </form>
+<p-toast position="top-right"></p-toast>

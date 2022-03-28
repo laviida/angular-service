@@ -1,2 +1,4 @@
-<app-create-user-form [header]="header" [primaryButton]="primaryButton" [secondaryButton]="secondaryButton">
+<app-create-user-form [header]="header" [primaryButton]="primaryButton" [secondaryButton]="secondaryButton"
+    (submitUserForm)="submit($event)" (clickSecondaryButton)="goToLogin()">
 </app-create-user-form>
+<p-toast position="top-right"></p-toast>

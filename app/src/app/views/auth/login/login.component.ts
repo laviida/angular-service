@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/services/auth.service';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
-@UntilDestroy()
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   emailValid: any;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private messageService: MessageService) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]),
@@ -34,13 +34,20 @@ export class LoginComponent implements OnInit {
     if (!this.loginForm.valid) return
     this.submitIsLoading = true;
     try {
-      const { data: { error, data }, status } = await this.authService.login(this.loginForm.get("email")?.value, this.loginForm.get("password")?.value)
-      if (error) return;
+      const { data, status } = await this.authService.login(this.loginForm.get("email")?.value, this.loginForm.get("password")?.value);
 
+      if (status !== 200 || data?.error) {
+        const summary = data?.data ?? "Unknown error";
+        const detail = data?.message ?? "There has been an unknown error";
+        this.messageService.add({ severity: "error", summary, detail })
+        return;
+      }
+
+      this.submitIsLoading = false;
       this.authService.setUserLogin(data.token);
-
       this.router.navigate(['/users']);
-    } catch (error) {
+    } catch (error: any) {
+      this.messageService.add({ severity: "error", summary: error.name, detail: error.message })
       this.submitIsLoading = false;
     } finally {
       this.submitIsLoading = false;
@@ -50,7 +57,5 @@ export class LoginComponent implements OnInit {
   register() {
     this.router.navigate(['/register']);
   }
-
-
 
 }

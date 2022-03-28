@@ -4,7 +4,16 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
+    max-width: 600px;
+    width: 80%;
 }
+
+.center-relative{
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
 
 .field{
     margin-top: 20px !important;

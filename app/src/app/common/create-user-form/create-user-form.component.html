@@ -1,5 +1,5 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="createUserForm">
-    <p-panel [header]="header" class="center">
+    <p-panel [header]="header" [class]="panelClass">
         <div class="card border-round">
             <div class="formgrid grid">
                 <div class="field col">
@@ -94,7 +94,7 @@
                     [loading]="submitIsLoading"></button>
 
                 <button *ngIf="!secondaryButton.hide" class="p-button-secondary p-button-text p-button-sm" pButton
-                    [label]="secondaryButton.label" (click)="secondaryButton.function(router)"></button>
+                    [label]="secondaryButton.label" (click)="clickSButton()" type="button"></button>
             </div>
 
         </ng-template>

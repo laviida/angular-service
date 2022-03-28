@@ -8,7 +8,9 @@ import { UserListComponent } from './views/users/user-list/user-list.component';
 const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
-  { path: "users", canActivate: [AuthGuard], component: UserListComponent }
+  { path: "users", canActivate: [AuthGuard], component: UserListComponent },
+  { path: "", component: LoginComponent },
+  // { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

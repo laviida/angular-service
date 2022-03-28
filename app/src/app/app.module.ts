@@ -14,13 +14,10 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { DialogModule } from 'primeng/dialog';
 
 import { InputTextModule } from 'primeng/inputtext';
-import { FileUploadModule } from 'primeng/fileupload';
-import { RatingModule } from 'primeng/rating';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService } from 'primeng/api';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { PanelModule } from 'primeng/panel';
 import { LoginComponent } from './views/auth/login/login.component';
@@ -29,6 +26,7 @@ import { PasswordModule } from 'primeng/password';
 import { ServicesModule } from './services/services.module';
 import { RegisterComponent } from './views/auth/register/register.component';
 import { CreateUserFormComponent } from './common/create-user-form/create-user-form.component';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -55,9 +53,11 @@ import { CreateUserFormComponent } from './common/create-user-form/create-user-f
     PanelModule,
     DividerModule,
     PasswordModule,
-    ServicesModule
+    ServicesModule,
+    ToastModule,
+    ConfirmDialogModule
   ],
-  providers: [],
+  providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

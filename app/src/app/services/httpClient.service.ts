@@ -1,13 +1,12 @@
 import { Injectable } from "@angular/core";
 import axios, { AxiosInstance } from 'axios';
-import { Router } from "@angular/router";
 
 @Injectable({ providedIn: 'root' })
 export class HttpClient {
 
   http: AxiosInstance;
 
-  constructor(private router: Router) {
+  constructor() {
     this.http = axios.create({ timeout: 5000 });
     this.interceptors();
   }
@@ -23,7 +22,7 @@ export class HttpClient {
   interceptors() {
     this.http.interceptors.response.use(
       response => { return response; },
-      error => { return error; }
+      error => { return error.response; }
     );
   }
 
