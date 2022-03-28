@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
       }
 
       this.submitIsLoading = false;
-      this.authService.setUserLogin(data.token);
+      this.authService.setUserLogin(data.data.token);
       this.router.navigate(['/users']);
     } catch (error: any) {
       this.messageService.add({ severity: "error", summary: error.name, detail: error.message })

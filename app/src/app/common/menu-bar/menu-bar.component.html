@@ -1,0 +1,10 @@
+<p-menubar styleClass="mb-5" [model]="items">
+    <ng-template pTemplate="start">
+        <img src="assets/images/logo.png" height="50" class="mr-2">
+    </ng-template>
+    <ng-template pTemplate="end">
+        <span class="center">Hola, {{username}}</span>
+        <button pButton type="button" label="Logout" icon="pi pi-sign-out" iconPos="left" class="p-button-text"
+            (click)="logOut()"></button>
+    </ng-template>
+</p-menubar>
